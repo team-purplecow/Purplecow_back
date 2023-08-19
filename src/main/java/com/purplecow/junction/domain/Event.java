@@ -21,6 +21,7 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idx;
+
     @Column(nullable = false, length = 100)
     @Schema(description = "행사 이름", example = "정션")
     private String title;
