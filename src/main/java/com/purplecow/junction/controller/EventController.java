@@ -32,4 +32,11 @@ public class EventController {
         Event event = eventService.findById(event_idx);
         return ResponseEntity.status(HttpStatus.CREATED).body(event);
     }
+
+    //기본 보드
+
+    //최근 2주, 1달 변경
+
+    //총 visit 수 return
+
 }

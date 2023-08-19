@@ -31,4 +31,7 @@ public class UserController {
         Users user= userService.findById(user_idx);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
+
+    //참여자 이름 검색 반환
+
 }
