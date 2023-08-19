@@ -21,6 +21,10 @@ public class Users {
     private int idx;
 
     @Column(nullable = false)
+    @Schema(description = "나이", example = "26")
+    private int age;
+
+    @Column(nullable = false)
     @Schema(description = "성별", example = "W")
     private char gender;
 
@@ -42,12 +46,12 @@ public class Users {
 
 
     @Builder
-    public Users(char gender, Position position, Job job,Food food, String  phone){
+    public Users(int age, char gender, Position position, Job job,Food food, String  phone){
+        this.age = age;
         this.gender=gender;
         this.position=position;
         this.job=job;
         this.food=food;
         this.phone=phone;
-
     }
 }
