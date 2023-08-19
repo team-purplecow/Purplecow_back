@@ -1,8 +1,6 @@
 package com.purplecow.junction.controller;
 
-import com.purplecow.junction.domain.Company;
-import com.purplecow.junction.domain.Event;
-import com.purplecow.junction.domain.Visit;
+import com.purplecow.junction.domain.*;
 import com.purplecow.junction.repository.CompanyRepository;
 import com.purplecow.junction.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Random;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,6 +19,38 @@ public class SetupController {
     private final EventRepository eventRepository;
     private final CompanyRepository companyRepository;
 
+    private static final String[] COMPANY_NAMES = {"SOLUM", "SAMSUNG", "NAVER", "LG"};
+
+    private static Users generateRandomUser() {
+        Random random = new Random();
+        Users user = new Users();
+
+        String[] names = {"Alice", "Bob", "Charlie", "David", "Ella", "Frank", "Grace", "Henry", "Ivy", "Jack"};
+        user.setName(names[random.nextInt(names.length)]);
+
+        user.setAge(random.nextInt(20) + 20); // 20 ~ 39 사이의 나이 생성
+
+        char[] genders = {'M', 'W'};
+        user.setGender(genders[random.nextInt(genders.length)]);
+
+        Position[] positions = Position.values();
+        user.setPosition(positions[random.nextInt(positions.length)]);
+
+        Job[] jobs = Job.values();
+        user.setJob(jobs[random.nextInt(jobs.length)]);
+
+        Food[] foods = Food.values();
+        user.setFood(foods[random.nextInt(foods.length)]);
+
+        StringBuilder phoneBuilder = new StringBuilder("010-");
+        for (int i = 0; i < 8; i++) {
+            phoneBuilder.append(random.nextInt(10));
+        }
+        user.setPhone(phoneBuilder.toString());
+        return user;
+
+    }
+
     @GetMapping("/")
     public void setup() {
         LocalDate startDate = LocalDate.parse("2023-08-18");
@@ -27,18 +58,17 @@ public class SetupController {
         Event event = new Event("JUNCTION ASIA 2023", 0, startDate, endDate);
         eventRepository.save(event);
 
-        Company company1 = new Company(event, "SOLUM", 0);
-        Company company2 = new Company(event, "SAMSUNG", 0);
-        Company company3 = new Company(event, "ARIRANG", 0);
-        Company company4 = new Company(event, "LG", 0);
+        for (String companyName : COMPANY_NAMES) {
+            Company company = new Company(event, companyName, 0);
+            companyRepository.save(company);
+        }
 
-        companyRepository.save(company1);
-        companyRepository.save(company2);
-        companyRepository.save(company3);
-        companyRepository.save(company4);
-
-
-
+        for (int i = 0; i < 200; i++) {
+            Users user = generateRandomUser();
+        }
     }
+
+
+
 
 }
