@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Tag(name = "users", description = "유저")
 @RestController
@@ -33,7 +34,6 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
-
     @GetMapping("/users/search")
     @Operation(summary = "api/users/search", description = "검색 결과")
     public ResponseEntity<List<Users>> findBy(@RequestParam String keyword) {
@@ -52,6 +52,11 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-
+    @GetMapping("users/percentage")
+    @Operation(summary = "api/users/percentage", description = "유저 비율")
+    public ResponseEntity<Map<Character, Double>> getGenderPercentage() {
+        Map<Character, Double> genderPercentage = userService.getGenderPercentage();
+        return ResponseEntity.ok(genderPercentage);
+    }
 
 }

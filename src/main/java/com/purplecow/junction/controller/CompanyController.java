@@ -28,12 +28,12 @@ public class CompanyController {
         return ResponseEntity.status(HttpStatus.CREATED).body(company);
     }
 
-    @GetMapping
+    @GetMapping("company/list")
+    @Operation(summary = "api/company/list", description = "기업 리스트")
     public List<CompanyResponseDto> getAllCompanies() {
         List<Company> companies = companyService.getAllCompanies();
         return companies.stream()
                 .map(company -> new CompanyResponseDto(company.getTitle(), company.getNumber()))
                 .collect(Collectors.toList());
     }
-
 }
