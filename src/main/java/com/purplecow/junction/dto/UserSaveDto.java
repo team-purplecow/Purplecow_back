@@ -1,38 +1,32 @@
-package com.purplecow.junction.domain;
+package com.purplecow.junction.dto;
 
+
+import com.purplecow.junction.domain.Food;
+import com.purplecow.junction.domain.Job;
+import com.purplecow.junction.domain.Position;
+import com.purplecow.junction.domain.Users;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.annotations.DynamicInsert;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
-@Getter
 @NoArgsConstructor
-@Entity
-@DynamicInsert
-@Setter
-@Table(name = "users")
-public class Users {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idx;
+@Getter
+public class UserSaveDto {
 
-    @Column(nullable = false)
     @Schema(description = "성별", example = "W")
     private char gender;
 
-    @Enumerated(EnumType.STRING)
     @Schema(description = "포지션", example = "PARTICIPANT")
     private Position position;
 
-    @Enumerated(EnumType.STRING)
     @Schema(description = "직업", example = "STUDENT")
     private Job job;
 
-    @Enumerated(EnumType.STRING)
     @Schema(description = "음식", example = "NORMAL")
     private Food food;
 
@@ -40,14 +34,23 @@ public class Users {
     @Schema(description = "phone", example = "010-0000-0000")
     private String phone;
 
-
     @Builder
-    public Users(char gender, Position position, Job job,Food food, String  phone){
+    public UserSaveDto(char gender, Position position, Job job,
+                       Food food, String phone){
         this.gender=gender;
         this.position=position;
         this.job=job;
         this.food=food;
         this.phone=phone;
+    }
 
+    public Users toEntity(){
+        return Users.builder()
+                .gender(gender)
+                .phone(phone)
+                .position(position)
+                .job(job)
+                .food(food)
+                .build();
     }
 }
