@@ -42,5 +42,8 @@ public class Company {
         this.title=title;
         this.number=number;
     }
+    public void increaseNumber(){
+        this.number++;
+    }
 
 }

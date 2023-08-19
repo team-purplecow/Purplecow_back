@@ -1,12 +1,15 @@
 package com.purplecow.junction.dto;
 
 
+import com.purplecow.junction.domain.Position;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 @NoArgsConstructor
 @Getter
@@ -25,6 +28,10 @@ public class EventResponseDto {
     private int total;
 
     //포지션 이름, 수 리스트
+    @Schema(description = "포지션 정보")
+    private Map<String, Integer> positionInfo;  // 포지션 이름과 수를 담는 Map
+
+
 
     //statistics 리스트
 
@@ -33,6 +40,15 @@ public class EventResponseDto {
     //booth 이름/숫자
 
 
+    public void addPositionInfo(Position position, int count) {
+        if (positionInfo == null) {
+            positionInfo = new HashMap<>();
+        }
+        positionInfo.put(position.name(), count);
+    }
 
+    public Map<String, Integer> getPositionInfo() {
+        return positionInfo;
+    }
 
 }

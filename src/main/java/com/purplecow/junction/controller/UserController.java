@@ -21,7 +21,7 @@ public class UserController {
     private final UserService userService;
     @PostMapping("/users/signup")
     @Operation(summary = "api/users/signup", description = "회원가입")
-    public  ResponseEntity<Users> saveUsers(@RequestBody UserSaveDto userSaveDto){
+    public ResponseEntity<Users> saveUsers(@RequestBody UserSaveDto userSaveDto){
         Users user =userService.saveUsers(userSaveDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
@@ -51,5 +51,7 @@ public class UserController {
         List<Users> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
+
+
 
 }
