@@ -34,5 +34,9 @@ public class UserService {
     public List<Users> findByName(String name){
         return usersRepository.findByNameContaining(name);
     }
+    @Transactional
+    public List<Users> getAllUsers() {
+        return usersRepository.findAllByOrderByCreatedDateDesc();
+    }
 
 }

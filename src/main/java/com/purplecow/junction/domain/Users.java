@@ -1,5 +1,6 @@
 package com.purplecow.junction.domain;
 
+import com.purplecow.junction.BaseTimeEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import javax.persistence.*;
 @DynamicInsert
 @Setter
 @Table(name = "users")
-public class Users {
+public class Users extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idx;

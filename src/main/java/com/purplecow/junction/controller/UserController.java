@@ -45,4 +45,11 @@ public class UserController {
         }
     }
 
+    @GetMapping("/users")
+    @Operation(summary = "api/users", description = "모든 유저 리스트 최신순 조회")
+    public ResponseEntity<List<Users>> getAllUsers() {
+        List<Users> users = userService.getAllUsers();
+        return ResponseEntity.ok(users);
+    }
+
 }
