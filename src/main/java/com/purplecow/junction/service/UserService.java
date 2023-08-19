@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -28,4 +29,10 @@ public class UserService {
         Users entity = usersRepository.findById(idx).orElseThrow(()-> new IllegalArgumentException("해당 유저가 없습니다. id="+idx));
         return entity;
     }
+
+    @Transactional
+    public List<Users> findByName(String name){
+        return usersRepository.findByNameContaining(name);
+    }
+
 }

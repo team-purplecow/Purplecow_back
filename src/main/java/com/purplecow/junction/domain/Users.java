@@ -20,6 +20,10 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idx;
 
+    @Column(nullable = false, length = 20)
+    @Schema(description = "name", example = "이름")
+    private String name;
+
     @Column(nullable = false)
     @Schema(description = "나이", example = "26")
     private int age;
@@ -46,8 +50,9 @@ public class Users {
 
 
     @Builder
-    public Users(int age, char gender, Position position, Job job,Food food, String  phone){
+    public Users(int age,String name, char gender, Position position, Job job,Food food, String  phone){
         this.age = age;
+        this.name=name;
         this.gender=gender;
         this.position=position;
         this.job=job;

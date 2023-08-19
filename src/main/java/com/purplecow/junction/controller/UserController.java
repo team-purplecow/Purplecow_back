@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Tag(name = "users", description = "유저")
 @RestController
 @RequiredArgsConstructor
@@ -24,11 +26,23 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
-
     @GetMapping("/users/{user_idx}")
     @Operation(summary = "api/users/1", description = "유저 정보")
     public ResponseEntity<Users> findById(@PathVariable int user_idx){
         Users user= userService.findById(user_idx);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
+
+
+    @GetMapping("/users/search")
+    @Operation(summary = "api/users/search", description = "검색 결과")
+    public ResponseEntity<List<Users>> findBy(@RequestParam String keyword) {
+        List<Users> users = userService.findByName(keyword);
+        if (users.isEmpty()) {
+            return ResponseEntity.noContent().build(); // 검색 결과가 없을 때
+        } else {
+            return ResponseEntity.ok(users); // 검색 결과가 있을 때
+        }
+    }
+
 }
