@@ -18,6 +18,9 @@ import javax.persistence.Enumerated;
 @Getter
 public class UserSaveDto {
 
+    @Schema(description = "나이", example = "26")
+    private int age;
+
     @Schema(description = "성별", example = "W")
     private char gender;
 
@@ -35,8 +38,9 @@ public class UserSaveDto {
     private String phone;
 
     @Builder
-    public UserSaveDto(char gender, Position position, Job job,
+    public UserSaveDto(int age, char gender, Position position, Job job,
                        Food food, String phone){
+        this.age=age;
         this.gender=gender;
         this.position=position;
         this.job=job;
@@ -46,6 +50,7 @@ public class UserSaveDto {
 
     public Users toEntity(){
         return Users.builder()
+                .age(age)
                 .gender(gender)
                 .phone(phone)
                 .position(position)
