@@ -35,4 +35,7 @@ public class CompanyService {
         return companyRepository.findByTitle(name);
     }
 
+    public List<Company> getAllCompanies() {
+        return companyRepository.findAll();
+    }
 }

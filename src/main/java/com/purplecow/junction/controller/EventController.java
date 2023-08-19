@@ -62,7 +62,6 @@ public class EventController {
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
 
-    //최근 2주, 1달 변경
 
     //총 visit 수 return
 

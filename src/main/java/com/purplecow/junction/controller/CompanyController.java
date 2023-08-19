@@ -1,6 +1,7 @@
 package com.purplecow.junction.controller;
 
 import com.purplecow.junction.domain.Company;
+import com.purplecow.junction.dto.CompanyResponseDto;
 import com.purplecow.junction.dto.CompanySaveDto;
 import com.purplecow.junction.service.CompanyService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -9,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Tag(name = "company", description = "기업")
 @RestController
@@ -22,6 +26,14 @@ public class CompanyController {
     public ResponseEntity<Company> saveCompany(@RequestBody CompanySaveDto companySaveDto){
         Company company = companyService.saveCompany(companySaveDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(company);
+    }
+
+    @GetMapping
+    public List<CompanyResponseDto> getAllCompanies() {
+        List<Company> companies = companyService.getAllCompanies();
+        return companies.stream()
+                .map(company -> new CompanyResponseDto(company.getTitle(), company.getNumber()))
+                .collect(Collectors.toList());
     }
 
 }
