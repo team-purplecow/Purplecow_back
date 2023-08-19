@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
-        config.setAllowedOrigins(Arrays.asList("https://frontend-kinos.vercel.app/participants", "http://localhost:3000"));
+        config.setAllowedOrigins(Arrays.asList("https://frontend-kinos.vercel.app/participants", "http://localhost:3000","https://solumjunction.store/"));
         config.setAllowCredentials(true);
         source.registerCorsConfiguration("/**", config);
         return source;
