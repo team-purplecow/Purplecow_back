@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "users", description = "유저")
+@Tag(name = "events", description = "유저")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
