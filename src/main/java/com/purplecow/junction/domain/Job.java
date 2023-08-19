@@ -7,5 +7,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum Job {
     STUDENT,
-    TEACHER
+    TEACHER,
+    CTO,
+    PatentAttorney,
+    UIUXDesigner
 }
