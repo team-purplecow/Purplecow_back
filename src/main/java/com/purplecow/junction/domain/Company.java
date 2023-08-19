@@ -18,6 +18,7 @@ import javax.persistence.*;
 @Setter
 @Table(name = "company")
 public class Company {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idx;
@@ -31,11 +32,18 @@ public class Company {
     @Schema(description = "기업 이름", example = "Solum")
     private String title;
 
+    @Column(nullable = false, columnDefinition = "integer default 0")
+    @Schema(description = "누적 참가자", example = "500")
+    private int number;
+
     @Builder
-    public Company(Event event, String title){
+    public Company(Event event, String title, int number){
         this.event=event;
         this.title=title;
+        this.number=number;
     }
-
+    public void increaseNumber(){
+        this.number++;
+    }
 
 }

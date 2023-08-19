@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Tag(name = "users", description = "유저")
 @RestController
@@ -21,7 +22,7 @@ public class UserController {
     private final UserService userService;
     @PostMapping("/users/signup")
     @Operation(summary = "api/users/signup", description = "회원가입")
-    public  ResponseEntity<Users> saveUsers(@RequestBody UserSaveDto userSaveDto){
+    public ResponseEntity<Users> saveUsers(@RequestBody UserSaveDto userSaveDto){
         Users user =userService.saveUsers(userSaveDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
@@ -32,7 +33,6 @@ public class UserController {
         Users user= userService.findById(user_idx);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
-
 
     @GetMapping("/users/search")
     @Operation(summary = "api/users/search", description = "검색 결과")
@@ -50,6 +50,13 @@ public class UserController {
     public ResponseEntity<List<Users>> getAllUsers() {
         List<Users> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("users/percentage")
+    @Operation(summary = "api/users/percentage", description = "유저 비율")
+    public ResponseEntity<Map<Character, Double>> getGenderPercentage() {
+        Map<Character, Double> genderPercentage = userService.getGenderPercentage();
+        return ResponseEntity.ok(genderPercentage);
     }
 
 }

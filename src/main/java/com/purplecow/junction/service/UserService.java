@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.transaction.Transactional;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -39,4 +42,19 @@ public class UserService {
         return usersRepository.findAllByOrderByCreatedDateDesc();
     }
 
+    public Map<Character, Double> getGenderPercentage() {
+        List<Users> usersList = usersRepository.findAll();
+
+        long totalUsers = usersList.size();
+        Map<Character, Long> genderCount = usersList.stream()
+                .collect(Collectors.groupingBy(Users::getGender, Collectors.counting()));
+
+        Map<Character, Double> genderPercentage = new HashMap<>();
+        genderCount.forEach((gender, count) -> {
+            double percentage = (count * 100.0) / totalUsers;
+            genderPercentage.put(gender, percentage);
+        });
+
+        return genderPercentage;
+    }
 }
