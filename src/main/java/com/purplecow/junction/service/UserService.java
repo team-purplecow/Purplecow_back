@@ -1,6 +1,7 @@
 package com.purplecow.junction.service;
 
 
+import com.purplecow.junction.domain.Position;
 import com.purplecow.junction.domain.Users;
 import com.purplecow.junction.dto.UserSaveDto;
 import com.purplecow.junction.repository.UsersRepository;
@@ -57,5 +58,42 @@ public class UserService {
 
         return genderPercentage;
     }
+
+    public List<Users> getUsersByGender(char gender) {
+        return usersRepository.findByGender(gender);
+    }
+
+    public List<Users> getUsersByPosition(Position position) {
+        return usersRepository.findByPosition(position);
+    }
+
+
+    public List<Users> getUsersByAge(int ageGroup) {
+        List<Users> allUsers = usersRepository.findAll();
+
+        int minAge, maxAge;
+        switch (ageGroup) {
+            case 1:
+                minAge = 10;
+                maxAge = 20;
+                break;
+            case 2:
+                minAge = 21;
+                maxAge = 30;
+                break;
+            case 3:
+                minAge = 31;
+                maxAge = 40;
+                break;
+            default:
+                minAge = 0;
+                maxAge = Integer.MAX_VALUE;
+        }
+
+        return allUsers.stream()
+                .filter(user -> user.getAge() >= minAge && user.getAge() <= maxAge)
+                .collect(Collectors.toList());
+    }
+
 
 }

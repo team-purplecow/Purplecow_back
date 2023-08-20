@@ -38,7 +38,7 @@ public class SetupController {
         "Wayn","Barbie","Ken","Cleric","Baba","Harry","Kay","Medi","Haely","Elice","Gola"};
         user.setName(names[random.nextInt(names.length)]);
 
-        user.setAge(random.nextInt(10) + 30); // 20 ~ 39 사이의 나이 생성
+        user.setAge(random.nextInt(10) + 30);
 
         char[] genders = {'M', 'W'};
         user.setGender(genders[random.nextInt(genders.length)]);

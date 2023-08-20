@@ -1,6 +1,7 @@
 package com.purplecow.junction.controller;
 
 
+import com.purplecow.junction.domain.Position;
 import com.purplecow.junction.domain.Users;
 import com.purplecow.junction.dto.UserSaveDto;
 import com.purplecow.junction.service.UserService;
@@ -51,6 +52,28 @@ public class UserController {
         List<Users> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
+
+    @GetMapping("/users/gender")
+    @Operation(summary = "api/users/gender", description = "성별에 따른 유저 리스트 조회")
+    public ResponseEntity<List<Users>> getUsersByGender(@RequestParam("gender") char gender) {
+        List<Users> filteredUsers = userService.getUsersByGender(gender);
+        return ResponseEntity.ok(filteredUsers);
+    }
+
+    @GetMapping("/users/position")
+    @Operation(summary = "api/users/position", description = "성별에 따른 유저 리스트 조회")
+    public ResponseEntity<List<Users>> getUsersByGender(@RequestParam("Position") Position position) {
+        List<Users> filteredUsers = userService.getUsersByPosition(position);
+        return ResponseEntity.ok(filteredUsers);
+    }
+
+    @GetMapping("/users/age")
+    @Operation(summary = "api/users/age-group", description = "나이 그룹에 따른 유저 리스트 조회")
+    public ResponseEntity<List<Users>> getUsersByAgeGroup(@RequestParam("age") int age) {
+        List<Users> filteredUsers = userService.getUsersByAge(age);
+        return ResponseEntity.ok(filteredUsers);
+    }
+
 
     @GetMapping("users/percentage")
     @Operation(summary = "api/users/percentage", description = "유저 비율")

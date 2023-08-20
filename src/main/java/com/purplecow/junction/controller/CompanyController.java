@@ -36,4 +36,13 @@ public class CompanyController {
                 .map(company -> new CompanyResponseDto(company.getTitle(), company.getNumber()))
                 .collect(Collectors.toList());
     }
+
+    @GetMapping("company/listToday")
+    @Operation(summary = "api/company/list", description = "기업 리스트")
+    public List<CompanyResponseDto> getAllCompanie() {
+        List<Company> companies = companyService.getAllCompanies();
+        return companies.stream()
+                .map(company -> new CompanyResponseDto(company.getTitle(), company.getNumber()/3))
+                .collect(Collectors.toList());
+    }
 }
